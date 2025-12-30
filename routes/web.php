@@ -35,4 +35,9 @@ Route::post('/logout', Logout::class)
     ->name('logout');
 
 // Habits Routes
-Route::get('/allHabits', [HabitController::class, 'index']);
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/allHabits', [HabitController::class, 'index']);
+    Route::delete('/allHabits/{habit}', [HabitController::class, 'destroy']);
+});

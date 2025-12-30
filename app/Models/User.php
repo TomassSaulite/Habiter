@@ -47,7 +47,7 @@ class User extends Authenticatable
     }
     public function habits()
     {
-        return $this->hasMany(Habits::class);
+        return $this->hasMany(Habit::class);
     }
 
     public function days()

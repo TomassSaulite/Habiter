@@ -24,7 +24,7 @@ class Day extends Model
 
     public function habits()
     {
-        return $this->belongsToMany(Habits::class)
+        return $this->belongsToMany(Habit::class)
             ->using(DayHabit::class)
             ->withPivot('completed')
             ->withTimestamps();

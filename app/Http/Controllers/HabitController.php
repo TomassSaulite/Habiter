@@ -1,31 +1,35 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Habits;
+use App\Models\Habit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HabitController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $habits = Habits::with('user')
+        $habits = Habit::with('user')
             ->where('user_id', Auth::id())
             ->latest()
             ->get();
-        
-        
-        return view('habits.allHabits', compact('habits'));
+
+
+
+
+        return view('habits.allHabits', ['habits' => $habits]);
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -63,8 +67,12 @@ class HabitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Habit $habit)
     {
-        //
+        $this->authorize('delete', $habit);
+
+        $habit->delete();
+
+        return redirect('/allHabits')->with('success', 'Habit deleted!');
     }
 }
