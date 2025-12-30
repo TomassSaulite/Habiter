@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Habit;
+use App\Models\Habits;
 
 class HabitSeeder extends Seeder
 {
@@ -28,7 +28,7 @@ class HabitSeeder extends Seeder
 
         foreach ($userIds as $userId) {
             foreach ($habitTemplates as [$name, $description]) {
-                Habit::create([
+                Habits::create([
                     'user_id' => $userId,
                     'name' => $name,
                     'description' => $description,
