@@ -8,22 +8,23 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('day_habit', function (Blueprint $table) {
+        Schema::create('habit_completion', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('day_id')
-                ->constrained()
-                ->cascadeOnDelete();
+            // $table->foreignId('day_id')
+            //     ->constrained()
+            //     ->cascadeOnDelete();
 
             $table->foreignId('habit_id')
                 ->constrained()
                 ->cascadeOnDelete();
 
             $table->boolean('completed')->default(false);
+            $table->timestamp('completed_at');
 
             $table->timestamps();
 
-            $table->unique(['day_id', 'habit_id']);
+            // $table->unique(['day_id', 'habit_id']);
         });
     }
 

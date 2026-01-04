@@ -11,8 +11,13 @@ class Habit extends Model
         'user_id',
         'name',
         'description',
+        'counter',
+        'last_completed',
     ];
 
+    protected $casts = [
+        'last_completed' => 'datetime',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -24,5 +29,9 @@ class Habit extends Model
             ->using(DayHabit::class)
             ->withPivot('completed')
             ->withTimestamps();
+    }
+    public function completions()
+    {
+        return $this->hasMany(HabitCompletion::class);
     }
 }

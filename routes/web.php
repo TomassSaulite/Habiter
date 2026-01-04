@@ -40,4 +40,7 @@ Route::post('/logout', Logout::class)
 Route::middleware('auth')->group(function () {
     Route::get('/allHabits', [HabitController::class, 'index']);
     Route::delete('/allHabits/{habit}', [HabitController::class, 'destroy']);
+    Route::view('/newHabit', 'habits.createHabit')->name('newHabit');
+    Route::post('/newHabit', [HabitController::class, 'store']);
+    Route::put('/allHabits/{habit}', [HabitController::class, 'complete']);
 });

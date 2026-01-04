@@ -37,7 +37,18 @@ class HabitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        Habit::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => auth()->id(), 
+    ]);
+
+        return redirect('/allHabits')->with('success', 'Habit created!');
     }
 
     /**
@@ -59,9 +70,20 @@ class HabitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function complete(Request $request, string $id)
+    {   
+        $habit = Habit::findOrFail($id);
+
+        if ($habit->last_completed && $habit->last_completed->isToday()) {
+            return redirect('/allHabits')->with('error', 'Habit completed today already!');
+        }
+        else {
+            $habit->completions()->create(['completed_at' => now()]);
+            $habit->counter += 1;
+            $habit->last_completed = now();
+            $habit->save();
+            return redirect('/allHabits')->with('success', 'Habit updated!');
+        }
     }
 
     /**

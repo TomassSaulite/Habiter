@@ -27,7 +27,7 @@ class Login extends Controller
 
         // If login fails, redirect back with error
         return back()
-            ->withErrors(['email' => 'The provided credentials do not match our records.'])
+            ->with('error', 'Login Failed. Please check your credentials and try again.')
             ->onlyInput('email');
     }
 }

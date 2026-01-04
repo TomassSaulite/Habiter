@@ -17,11 +17,11 @@
     <div class="mt-6 text-center">
         @if ($habits->isEmpty())
             <button class="btn btn-soft btn-primary">
-                        <a href="#">Create your first habit</a>
+                        <a href="{{ route('newHabit') }}">Create your first habit</a>
             </button>
         @else
             <button class="btn btn-soft btn-primary">
-                        <a href="#">Create new habit</a>
+                        <a href="{{ route('newHabit') }}">Create new habit</a>
             </button>
         @endif
     </div>
