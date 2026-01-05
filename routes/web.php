@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\DiaryController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -35,12 +36,14 @@ Route::post('/logout', Logout::class)
     ->name('logout');
 
 // Habits Routes
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/allHabits', [HabitController::class, 'index']);
     Route::delete('/allHabits/{habit}', [HabitController::class, 'destroy']);
     Route::view('/newHabit', 'habits.createHabit')->name('newHabit');
     Route::post('/newHabit', [HabitController::class, 'store']);
     Route::put('/allHabits/{habit}', [HabitController::class, 'complete']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/diary', [DiaryController::class, 'index']);
 });

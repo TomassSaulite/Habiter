@@ -40,7 +40,13 @@
                         Log Out
                     </button>
                 </form>
-                <span>{{ Auth::user()->name  }}</span>
+                <div class="dropdown dropdown-bottom dropdown-end dropdown-hover">
+                <div tabindex="0" role="button" class="btn m-1"><span>{{ Auth::user()->name  }}</span></div>
+                <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-40 p-2 shadow-sm">
+                    <li><a href ="/allHabits">My habits</a></li>
+                    <li><a href ="/diary">My diary</a></li>
+                </ul>
+                </div>
             </div>
         @endauth
         
