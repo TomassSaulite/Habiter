@@ -10,16 +10,18 @@ class DiaryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getDiaryEntries()
     {
-
-
         $diaryEntries = Diary::with('user')
             ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
-        return view('diary.diary', ['diaryEntries' => $diaryEntries]);
+        return $diaryEntries;
+    }
+    public function index()
+    {
+        return view('diary.diary', ['diaryEntries' => $this->getDiaryEntries()]);
     }
 
     /**
@@ -35,7 +37,17 @@ class DiaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'text' => 'required|string',
+        ]);
+
+        Diary::create([
+            'name' => $request->name,
+            'text' => $request->text,
+            'user_id' => auth()->id(), 
+    ]);
+        return view('diary.diary', ['diaryEntries' => $this->getDiaryEntries()])->with('success', 'Diary entry created!');
     }
 
     /**

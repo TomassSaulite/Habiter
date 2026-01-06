@@ -46,4 +46,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/diary', [DiaryController::class, 'index']);
+    Route::view('/newEntry', 'diary.newEntry')->name('createDiaryEntry');
+    Route::post('/newEntry', [DiaryController::class, 'store']);
 });
