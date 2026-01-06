@@ -12,17 +12,18 @@ class HabitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getHabits()
     {
         $habits = Habit::with('user')
             ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
-
-
-
-        return view('habits.allHabits', ['habits' => $habits]);
+        return $habits;
+    }
+    public function index()
+    {
+        return view('habits.allHabits', ['habits' => $this->getHabits()]);
     }
     /**
      * Show the form for creating a new resource.

@@ -30,6 +30,6 @@ class Register extends Controller
         Auth::login($user);
 
         // Redirect to home
-        return redirect('/allHabits')->with('success', 'Welcome to Habiter!');
+        return redirect('/')->with('success', 'Welcome to Habiter!');
     }
 }

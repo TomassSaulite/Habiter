@@ -15,7 +15,7 @@ class DiaryController extends Controller
         $diaryEntries = Diary::with('user')
             ->where('user_id', Auth::id())
             ->latest()
-            ->get();
+            ->paginate(10);
 
         return $diaryEntries;
     }
@@ -47,7 +47,7 @@ class DiaryController extends Controller
             'text' => $request->text,
             'user_id' => auth()->id(), 
     ]);
-        return view('diary.diary', ['diaryEntries' => $this->getDiaryEntries()])->with('success', 'Diary entry created!');
+        return redirect('/diary')->with('success', 'Diary entry created!');
     }
 
     /**

@@ -22,7 +22,7 @@ Route::post('/login', Login::class)
 
 // Registration Routes
 Route::get('/register', function () {
-    return view('auth.register'); // points to resources/views/auth/register.blade.php
+    return view('auth.register');
 })->middleware('guest')
   ->name('register');
 
@@ -37,15 +37,16 @@ Route::post('/logout', Logout::class)
 
 // Habits Routes
 Route::middleware('auth')->group(function () {
-    Route::get('/allHabits', [HabitController::class, 'index']);
+    Route::get('/allHabits', [HabitController::class, 'index'])->name('allHabits');
     Route::delete('/allHabits/{habit}', [HabitController::class, 'destroy']);
     Route::view('/newHabit', 'habits.createHabit')->name('newHabit');
     Route::post('/newHabit', [HabitController::class, 'store']);
     Route::put('/allHabits/{habit}', [HabitController::class, 'complete']);
 });
 
+// Diary Routes
 Route::middleware('auth')->group(function () {
-    Route::get('/diary', [DiaryController::class, 'index']);
+    Route::get('/diary', [DiaryController::class, 'index'])->name('diary');
     Route::view('/newEntry', 'diary.newEntry')->name('createDiaryEntry');
     Route::post('/newEntry', [DiaryController::class, 'store']);
 });

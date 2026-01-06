@@ -10,7 +10,7 @@
         </button>
     </span>
         <div class="divider"></div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 gap-6">
         @forelse ($diaryEntries as $diaryEntry)
             <x-diaryEntry :diaryEntry="$diaryEntry" />
         @empty
@@ -19,4 +19,45 @@
             </div>
         @endforelse  
     </div>
+    <div class="flex justify-center mt-6">
+        <div class="join">
+
+            {{-- First page --}}
+            @if ($diaryEntries->onFirstPage())
+                <button class="join-item btn btn-disabled"><<</button>
+            @else
+                <a href="{{ $diaryEntries->url(1) }}" class="join-item btn"><<</a>
+            @endif
+
+            {{-- Previous page --}}
+            @if ($diaryEntries->onFirstPage())
+                <button class="join-item btn btn-disabled">◀</button>
+            @else
+                <a href="{{ $diaryEntries->previousPageUrl() }}" class="join-item btn">◀</a>
+            @endif
+
+            {{-- Current page --}}
+            <button class="join-item btn ">
+                {{ $diaryEntries->currentPage() }}
+            </button>
+
+            {{-- Next page --}}
+            @if ($diaryEntries->hasMorePages())
+                <a href="{{ $diaryEntries->nextPageUrl() }}" class="join-item btn">▶</a>
+            @else
+                <button class="join-item btn btn-disabled">▶</button>
+            @endif
+
+            {{-- Last page --}}
+            @if ($diaryEntries->hasMorePages())
+                <a href="{{ $diaryEntries->url($diaryEntries->lastPage()) }}" class="join-item btn">>></a>
+            @else
+                <button class="join-item btn btn-disabled">>></button>
+            @endif
+
+        </div>
+    </div>
+
+
 </x-layout>
+
