@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Habit;
+use App\Models\HabitCompletion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -12,6 +13,12 @@ class HabitController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function getHabitCompletions()
+    {
+        $habitCompletions = HabitCompletion::latest()->get(); // no filtering by user
+        return $habitCompletions;
+    }
     public function getHabits()
     {
         $habits = Habit::with('user')
@@ -23,7 +30,7 @@ class HabitController extends Controller
     }
     public function index()
     {
-        return view('habits.allHabits', ['habits' => $this->getHabits()]);
+        return view('habits.allHabits', ['habits' => $this->getHabits(), 'habitCompletions' => $this->getHabitCompletions()]);
     }
     /**
      * Show the form for creating a new resource.
@@ -74,6 +81,7 @@ class HabitController extends Controller
     public function complete(Request $request, string $id)
     {   
         $habit = Habit::findOrFail($id);
+
 
         if ($habit->last_completed && $habit->last_completed->isToday()) {
             return redirect('/allHabits')->with('error', 'Habit completed today already!');

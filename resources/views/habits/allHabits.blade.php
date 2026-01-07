@@ -4,9 +4,9 @@
     </x-slot:title>
     <span class="text-3xl font-bold mb-6">All Habits</span>
         <div class="divider"></div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 gap-6">
         @forelse ($habits as $habit)
-            <x-habit :habit="$habit" />
+            <x-habit :habit="$habit" :habitCompletions="$habitCompletions" />
         @empty
             <div class="col-span-full text-center">
                 <p class="text-gray-500">No habits found.</p>
