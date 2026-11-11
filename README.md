@@ -1,5 +1,7 @@
 # Habiter
 
+[![CI](https://github.com/TomassSaulite/Habiter/actions/workflows/ci.yml/badge.svg)](https://github.com/TomassSaulite/Habiter/actions/workflows/ci.yml)
+
 A habit tracker and personal diary built with Laravel. Create habits, check them off once a day, and see how many times you've completed each one. There's also a private journal for daily notes.
 
 ## Features
@@ -33,6 +35,14 @@ composer run dev          # or: php artisan serve + npm run dev
 User ─┬─< Habit ──< HabitCompletion (completed_at)
       └─< Diary
 ```
+
+## Testing
+
+```bash
+composer test
+```
+
+CI runs the application test suite on every push and pull request.
 
 ## Possible next steps
 
